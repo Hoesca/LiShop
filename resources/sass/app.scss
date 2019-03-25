@@ -1,6 +1,6 @@
 
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
 @import 'variables';
@@ -28,6 +28,14 @@ body {
     border-bottom: 1px solid #e8e8e8;
     margin-bottom: 40px;
     margin-top: 0px;
+    .site-logo {
+        width: 125px;
+        height: 40px;
+    }
+    .user-logo {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 /* Sticky footer styles */
