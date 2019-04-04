@@ -1403,6 +1403,11 @@ charenc@~0.0.1:
   resolved "http://registry.npm.taobao.org/charenc/download/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
   integrity sha1-wKHS86cJLgN3S/qD8UwPxXkKhmc=
 
+china-area-data@^4.0.0:
+  version "4.0.0"
+  resolved "http://registry.npm.taobao.org/china-area-data/download/china-area-data-4.0.0.tgz#95c27bf4dff8b99ee92f972b1739d551da7f303b"
+  integrity sha1-lcJ79N/4uZ7pL5crFznVUdp/MDs=
+
 chokidar@^2.0.0, chokidar@^2.0.2, chokidar@^2.0.3:
   version "2.1.4"
   resolved "http://registry.npm.taobao.org/chokidar/download/chokidar-2.1.4.tgz#244a65d68beedf1078c2f193cf2735c2cfdc7da2"
@@ -3866,11 +3871,6 @@ mdn-data@~1.1.0:
   version "1.1.4"
   resolved "http://registry.npm.taobao.org/mdn-data/download/mdn-data-1.1.4.tgz#50b5d4ffc4575276573c4eedb8780812a8419f01"
   integrity sha1-ULXU/8RXUnZXPE7tuHgIEqhBnwE=
-
-mdui@^0.4.2:
-  version "0.4.2"
-  resolved "http://registry.npm.taobao.org/mdui/download/mdui-0.4.2.tgz#bd715861a22350ac33e6a42dfa257586ab588d0c"
-  integrity sha1-vXFYYaIjUKwz5qQt+iV1hqtYjQw=
 
 media-typer@0.3.0:
   version "0.3.0"
