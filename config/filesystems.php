@@ -65,9 +65,9 @@ return [
         ],
         'admin' => [
             'driver'     => 'local',
-            'root'       => public_path('storage/upload'),
+            'root'       => public_path('storage/products'),
             'visibility' => 'public',
-            'url' => env('APP_URL').'/storage/upload/',
+            'url' => env('APP_URL').'/storage/products/',
         ],
     ],
 

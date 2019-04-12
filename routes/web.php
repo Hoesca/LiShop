@@ -16,11 +16,12 @@ Route::get('test',function () {
     return view('test');
 });
 
-Route::get('/', 'PagesController@root')->name('root')->middleware('verified');
+Route::redirect('/', '/products')->name('root');
+Route::get('products', 'ProductsController@index')->name('products.index');
 Auth::routes(['verify' => true]);
 Auth::routes();
 
-//用户地址管理路由组
+//用户地址路由组
 Route::group(['middleware' => ['auth', 'verified']], function (){
     Route::get('user_addresses', 'UserAddressesController@index')->name('user_addresses.index');
     Route::get('user_addresses/create', 'UserAddressesController@create')->name('user_addresses.create');
