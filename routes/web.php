@@ -11,13 +11,7 @@
 |
 */
 
-
-Route::get('test',function () {
-    return view('test');
-});
-
 Route::redirect('/', '/products')->name('root');
-Route::get('products', 'ProductsController@index')->name('products.index');
 Auth::routes(['verify' => true]);
 Auth::routes();
 
@@ -30,3 +24,6 @@ Route::group(['middleware' => ['auth', 'verified']], function (){
     Route::put('user_addresses/{userAddress}', 'UserAddressesController@update')->name('user_address.update');
     Route::delete('user_addresses/{userAddress}', 'UserAddressesController@destroy')->name('user_addresses.destroy');
 });
+
+Route::get('products', 'ProductsController@index')->name('products.index');
+Route::get('products/{product}', 'ProductsController@show')->name('products.show');
