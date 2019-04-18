@@ -226,5 +226,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
+    'order_ttl' => env('ORDER_TTL', '1800'),  //订单超时关闭时间，单位秒/s
 
 ];

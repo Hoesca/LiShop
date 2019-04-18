@@ -8,6 +8,7 @@ use App\Models\ProductSku;
 use App\Models\UserAddress;
 use App\Models\Order;
 use Carbon\Carbon;
+use App\Jobs\closeOrder;
 
 
 class OrdersController extends Controller
@@ -65,6 +66,8 @@ class OrdersController extends Controller
 
             return $order;
         });
+        $this->dispatch(new closeOrder($order, config('app.order_ttl')));
+
         return $order;
     }
 }
