@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Request;
-use App\Models\CartItem;
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use App\Http\Requests\AddCartRequest;
 use App\Models\ProductSku;
+use App\Services\CartService;
 
 class CartController extends Controller
 {
-    //
+    protected $cartService;
+
+    // 利用 Laravel 的自动解析功能注入 CartService 类
+    public function __construct(CartService $cartService)
+    {
+        $this->cartService = $cartService;
+    }
+
     public function index(Request $request)
     {
-        //get sku info and address info
-        $cartItems = $request->user()->cartItems()->with(['productSku.product'])->get();
+        $cartItems = $this->cartService->get();
         $addresses = $request->user()->addresses()->orderBy('last_used_at', 'desc')->get();
 
         return view('cart.index', ['cartItems' => $cartItems, 'addresses' => $addresses]);
@@ -22,28 +27,16 @@ class CartController extends Controller
 
     public function add(AddCartRequest $request)
     {
-        $user = $request->user();
-        $skuId = $request->input('sku_id');
-        $amount = $request->input('amount');
-        //if user already have cart items,just make amount increment
-        if ($cart = $user->cartItems()->where('product_sku_id', $skuId)->first()){
-            $cart->update([
-                'amount' => $cart->amount + $amount,
-            ]);
-        }else {
-            //else,create a new one and save to database
-            $cart = new CartItem(['amount' => $amount]);
-            $cart->user()->associate($user);
-            $cart->productSku()->associate($skuId);
-            $cart->save();
-        }
-    }
+        $this->cartService->add($request->input('sku_id'), $request->input('amount'));
 
-    public function delete(ProductSku $productSku, Request $request)
-    {
-        $request->user()->cartItems()->where('product_sku_id', $productSku->id)->delete();
         return [];
     }
 
+    public function remove(ProductSku $sku)
+    {
+        $this->cartService->remove($sku->id);
+
+        return [];
+    }
     //TODO:边栏购物车
 }
