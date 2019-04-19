@@ -53,17 +53,13 @@ class OrderService
             }
             // 更新订单总金额
             $order->update(['total_amount' => $totalAmount]);
-
             // 将下单的商品从购物车中移除
             $skuIds = collect($items)->pluck('sku_id')->all();
             app(CartService::class)->remove($skuIds);
-
             return $order;
         });
-
-        // 这里我们直接使用 dispatch 函数
+        // 这里我们直接使用 dispatch 函数分发任务
         dispatch(new CloseOrder($order, config('app.order_ttl')));
-
         return $order;
     }
 }

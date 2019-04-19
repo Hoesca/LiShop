@@ -2,9 +2,8 @@
 
 namespace App\Services;
 
-use App\Http\Requests\AddCartRequest;
-use App\Models\CartItem;
 use Auth;
+use App\Models\CartItem;
 
 class CartService
 {
@@ -16,18 +15,20 @@ class CartService
     public function add($skuId, $amount)
     {
         $user = Auth::user();
-        //if user already have cart items,just make amount increment
-        if ($cart = $user->cartItems()->where('product_sku_id', $skuId)->first()){
-            $cart->update([
-                'amount' => $cart->amount + $amount,
+        // 从数据库中查询该商品是否已经在购物车中
+        if ($item = $user->cartItems()->where('product_sku_id', $skuId)->first()) {
+            // 如果存在则直接叠加商品数量
+            $item->update([
+                'amount' => $item->amount + $amount,
             ]);
-        }else {
-            //else,create a new one and save to database
-            $cart = new CartItem(['amount' => $amount]);
-            $cart->user()->associate($user);
-            $cart->productSku()->associate($skuId);
-            $cart->save();
+        } else {
+            // 否则创建一个新的购物车记录
+            $item = new CartItem(['amount' => $amount]);
+            $item->user()->associate($user);
+            $item->productSku()->associate($skuId);
+            $item->save();
         }
+        return $item;
     }
 
     public function remove($skuIds)

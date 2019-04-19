@@ -31,20 +31,16 @@ Route::group(['middleware' => ['auth', 'verified']], function (){
     //购物车路由
     Route::get('cart', 'CartController@index')->name('cart.index');
     Route::post('cart', 'CartController@add')->name('cart.add');
-    Route::delete('cart/{productSku}', 'CartController@remove')->name('cart.remove');
+    Route::delete('cart/{sku}', 'CartController@remove')->name('cart.remove');
     //订单路由
     Route::post('orders', 'OrdersController@store')->name('orders.store');
     Route::get('orders', 'OrdersController@index')->name('orders.index');
     Route::get('orders/{order}', 'OrdersController@show')->name('orders.show');
+    Route::get('orders/{order}/alipay', 'PaymentController@payByAlipay')->name('payment.alipay');
+    Route::get('payment/alipay/return', 'PaymentController@alipayReturn')->name('payment.alipay.return');
 });
+Route::post('payment/alipay/notify', 'PaymentController@alipayNotify')->name('payment.alipay.notify');
 
 Route::get('products', 'ProductsController@index')->name('products.index');
 Route::get('products/{product}', 'ProductsController@show')->name('products.show');
 
-Route::get('alipay', function() {
-    return app('alipay')->web([
-        'out_trade_no' => time(),
-        'total_amount' => '1',
-        'subject' => 'test subject - 测试',
-    ]);
-});
