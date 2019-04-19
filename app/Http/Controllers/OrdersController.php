@@ -9,10 +9,21 @@ use App\Models\UserAddress;
 use App\Models\Order;
 use Carbon\Carbon;
 use App\Jobs\closeOrder;
+use Illuminate\Http\Request;
 
 
 class OrdersController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        $orders = $request->user()->orders()
+            ->with(['items.product', 'items.productSku'])
+            ->where('user_id', $request->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate();
+        return view('orders.index', ['orders' => $orders]);
+    }
 
     public function store(OrderRequest $request)
     {

@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth', 'verified']], function (){
     Route::delete('cart/{productSku}', 'CartController@delete')->name('cart.delete');
     //订单路由
     Route::post('orders', 'OrdersController@store')->name('orders.store');
+    Route::get('orders', 'OrdersController@index')->name('orders.index');
 });
 
 Route::get('products', 'ProductsController@index')->name('products.index');
