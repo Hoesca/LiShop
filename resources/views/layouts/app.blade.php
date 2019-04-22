@@ -16,9 +16,16 @@
     <div class="container">
         @yield('content')
     </div>
+    <div>
+        <ul>
+            <li><a href="" class="cart"><i class="fa fa-shopping-cart"></i></a>
+            </li>
+        </ul>
+    </div>
     @include('layouts._footer')
 </div>
 <!-- JS -->
+
 <script src="{{ mix('js/app.js') }}"></script>
 @yield('scriptAfterJs')
 </body>

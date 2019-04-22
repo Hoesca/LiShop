@@ -84,7 +84,7 @@ class Order extends Model
 
     public function items()
     {
-        return $this->hasMany(OrderItems::class);
+        return $this->hasMany(OrderItem::class);
     }
 
     public static function findAvailableNo()
