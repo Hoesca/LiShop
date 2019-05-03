@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\InvalidRequestException;
 use Illuminate\Http\Request;
-use App\Models\Product;
+use App\Models\{Product, OrderItem};
 
 class ProductsController extends Controller
 {
@@ -54,10 +54,25 @@ class ProductsController extends Controller
             throw new InvalidRequestException('商品未上架！');
         }
         $favored = false;
+        //判断是否收藏了这个商品
         if ($user = $request->user()){
             $favored = boolval($user->favoriteProducts()->find($product->id));
         }
-        return view('products.show', ['product' => $product, 'favored' => $favored]);
+        //获得该商品评价
+        $reviews = OrderItem::query()
+            ->with(['order.user', 'productSku']) // 预先加载关联关系
+            ->where('product_id', $product->id)
+            ->whereNotNull('reviewed_at') // 筛选出已评价的
+            ->orderBy('reviewed_at', 'desc') // 按评价时间倒序
+            ->limit(10) // 取出 10 条
+            ->get();
+
+        // 注入到模板中
+        return view('products.show', [
+            'product' => $product,
+            'favored' => $favored,
+            'reviews' => $reviews
+        ]);
     }
 
     public function favor(Product $product, Request $request)

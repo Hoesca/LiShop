@@ -10,7 +10,7 @@ class OrderItem extends Model
     protected $fillable = [
         'amount', 'price', 'review', 'reviewed_at', 'rating'
     ];
-    protected $dates = ['review_at'];
+    protected $dates = ['reviewed_at'];
     public $timestamps = false;
 
     public function order()

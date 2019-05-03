@@ -15,7 +15,7 @@ Route::redirect('/', '/products')->name('root');
 Auth::routes(['verify' => true]);
 Auth::routes();
 
-//用户地址路由组
+//用户路由组
 Route::group(['middleware' => ['auth', 'verified']], function (){
     //用户收货地址路由
     Route::get('user_addresses', 'UserAddressesController@index')->name('user_addresses.index');
@@ -36,8 +36,13 @@ Route::group(['middleware' => ['auth', 'verified']], function (){
     Route::post('orders', 'OrdersController@store')->name('orders.store');
     Route::get('orders', 'OrdersController@index')->name('orders.index');
     Route::get('orders/{order}', 'OrdersController@show')->name('orders.show');
-    Route::get('orders/{order}/alipay', 'PaymentController@payByAlipay')->name('payment.alipay');
+
     Route::post('orders/{order}/received', 'OrdersController@received')->name('orders.received');
+
+    Route::get('orders/{order}/review', 'OrdersController@review')->name('orders.review.show');
+    Route::post('orders/{order}/review', 'OrdersController@sendReview')->name('orders.review.store');
+
+    Route::get('orders/{order}/alipay', 'PaymentController@payByAlipay')->name('payment.alipay');
     Route::get('payment/alipay/return', 'PaymentController@alipayReturn')->name('payment.alipay.return');
 });
 Route::post('payment/alipay/notify', 'PaymentController@alipayNotify')->name('payment.alipay.notify');
