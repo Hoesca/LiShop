@@ -20,7 +20,6 @@
         <ul>
             <li style="list-style: none;">
                 <a href="{{ route('cart.index') }}" class="cart"><i class="fa fa-shopping-cart"></i></a>
-                <span class="badge badge-primary badge-pill" style="vertical-align: super;">2</span>
             </li>
         </ul>
     </div>
