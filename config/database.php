@@ -112,6 +112,10 @@ return [
 
         'client' => 'predis',
 
+        'options' => [
+            'prefix' => 'lishop'
+        ],
+
         'default' => [
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),

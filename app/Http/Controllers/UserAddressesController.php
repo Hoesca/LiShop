@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserAddressRequest;
+use App\Models\Product;
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
 
@@ -68,5 +69,6 @@ class UserAddressesController extends Controller
         $userAddress->delete();
         return [];
     }
+
 }
 
